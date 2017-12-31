@@ -23,6 +23,5 @@ public class WordPressSanity extends AbstractTestCase{
 		MySitePage mySitePae = new MySitePage(driver);
 		mySitePae.getMySitePage();
 		mySitePae.waitInMiliSeconds(5000);
-		
 	}
 }

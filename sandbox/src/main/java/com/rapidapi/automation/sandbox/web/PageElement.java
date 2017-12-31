@@ -1,6 +1,7 @@
 package com.rapidapi.automation.sandbox.web;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -8,8 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PageElement {
 
-	private String description;
-	private String xPath;
+	String description;
+	String xPath;
 	private int timeOutInSeconds = 30;
 	private WebDriverWait webDriverWait;
 	
@@ -23,20 +24,33 @@ public class PageElement {
 		return description;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public String getxPath() {
 		return xPath;
 	}
-
-	public void setxPath(String xPath) {
-		this.xPath = xPath;
+	
+	private void waitInMiliSeconds(long miliSeconds){
+		
+		long time = System.currentTimeMillis();
+		long stopTime = time + miliSeconds;
+		while(time < stopTime){
+			time = System.currentTimeMillis();
+		}
 	}
 	
 	private WebElement getWebElement() {
-		return webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(getxPath())));
+		
+		try {
+			WebElement element =  webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(getxPath())));
+			for(int i = 0; i < 3; i++) {
+				if(element.isEnabled()) {
+					return element;
+				}			
+				waitInMiliSeconds(1000);
+			}
+		}catch (NoSuchElementException e) {
+			System.out.println("Page Element " + getDescription() + " not found");
+		}
+		return null;
 	}
 	
 	public void clickOnPageElement(){

@@ -2,12 +2,14 @@ package com.rapidapi.automation.sandbox.web.pages;
 
 import org.openqa.selenium.WebDriver;
 
+import com.rapidapi.automation.sandbox.config.Log;
 import com.rapidapi.automation.sandbox.web.PageElement;
 
 public class PageHeader extends AbstractPage {
 
 	public PageHeader(WebDriver driver) {
 		super(driver);
+		Log.info("Page header menu opened");
 	}
 	
 	public MySitePage getMySitePage() {

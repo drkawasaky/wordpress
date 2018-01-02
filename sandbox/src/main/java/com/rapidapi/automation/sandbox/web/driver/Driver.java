@@ -13,6 +13,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import com.rapidapi.automation.sandbox.config.EnvConfig;
+import com.rapidapi.automation.sandbox.config.Log;
 
 public class Driver {
 
@@ -73,8 +74,10 @@ public class Driver {
 	}
 	
     public static void quitDriver() throws Exception {
-        if (driver != null) {
-            driver.quit();
+    	Log.info("Checking if other WebDriver is running");
+    	if (driver != null) {
+        	Log.info("Quiting WebDriver");
+        	driver.quit();
             driver = null;
             killWebdrivers();
         }
@@ -87,7 +90,7 @@ public class Driver {
 		for (String processName : processesNames) {			
 			if (isProcessRunning(processName)) {
 				killProcess(processName);
-				System.out.println(processName + " WebDriver process was killed.");
+				Log.info(processName + " was identified. WebDriver process was killed.");
 			}
 		}
 	}

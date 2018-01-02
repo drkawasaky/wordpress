@@ -1,0 +1,6 @@
+2018-01-02 16:00:55,230 INFO  [Log] Checking if other WebDriver is running 
+2018-01-02 16:01:06,764 INFO  [Log] Browsing to URL: http://www.wordpress.com 
+2018-01-02 16:01:24,532 INFO  [Log] WordPress landing page opened 
+2018-01-02 16:01:24,577 INFO  [Log] Identifying page element Log In link 
+2018-01-02 16:01:25,391 INFO  [Log] Page element Log In link found and available 
+2018-01-02 16:01:25,392 INFO  [Log] Clicking on page element Log In link 

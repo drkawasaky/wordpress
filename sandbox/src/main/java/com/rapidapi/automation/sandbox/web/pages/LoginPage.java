@@ -2,12 +2,14 @@ package com.rapidapi.automation.sandbox.web.pages;
 
 import org.openqa.selenium.WebDriver;
 
+import com.rapidapi.automation.sandbox.config.Log;
 import com.rapidapi.automation.sandbox.web.PageElement;
 
 public class LoginPage extends AbstractPage {
 
 	public LoginPage(WebDriver driver) {
 		super(driver);
+		Log.info("Login page opened");
 	}
 	
 	public ReaderPage loginToAccount(String userName, String password) {

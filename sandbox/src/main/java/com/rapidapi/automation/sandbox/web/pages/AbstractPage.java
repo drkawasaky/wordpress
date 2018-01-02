@@ -1,10 +1,13 @@
 package com.rapidapi.automation.sandbox.web.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchFrameException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.rapidapi.automation.sandbox.config.Log;
 
 
 public abstract class AbstractPage {
@@ -14,7 +17,6 @@ public abstract class AbstractPage {
 	protected WebDriverWait webDriverWait;
 	
 	public AbstractPage(WebDriver driver) {
-		
 		this.driver = driver;
 		this.webDriverWait = new WebDriverWait(driver, timeOutInSeconds);
 	}
@@ -23,6 +25,7 @@ public abstract class AbstractPage {
 		
 		long time = System.currentTimeMillis();
 		long stopTime = time + miliSeconds;
+		Log.info("Waiting for " + miliSeconds/1000 + " seconds");
 		while(time < stopTime){
 			time = System.currentTimeMillis();
 		}
@@ -30,32 +33,45 @@ public abstract class AbstractPage {
 	
 	public void refreshPage() {
 		
-		System.out.println("Refreshing the page");
+		Log.info("Refreshing the page");
 		driver.navigate().refresh();		
 	}
 
 	public void browseBack() {
 
-		System.out.println("Navigating back");
+		Log.info("Navigating back");
 		driver.navigate().back();		
 	}
 	
 	public Boolean isAjaxCompleted() {
 		try {
-			System.out.println("Waiting for AJAX to complete loading");
+			Log.info("Waiting for AJAX to complete loading");
 			webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@id='loading']")));
 			return true;
 		}catch (TimeoutException e) {
-			System.out.println("Attempt to load AJAX failed after " + timeOutInSeconds + " seconds");
+			Log.info("Attempt to load AJAX failed after " + timeOutInSeconds + " seconds");
 			return false;
 		}
 	}
 	
 	public void switchToFrameByXpath(String xPath) {
-		driver.switchTo().frame(driver.findElement(By.xpath(xPath)));
+		try {
+			driver.switchTo().frame(driver.findElement(By.xpath(xPath)));
+			Log.info("Switching to frame with xPath: " + xPath);
+		} catch (NoSuchFrameException e) {
+			Log.error("Frame with the xPath: " + xPath + " not found");
+			throw e;
+		}
 	}
 	
 	public void switchToMainFrame() {
-		driver.switchTo().defaultContent();
+		
+		try {
+			driver.switchTo().defaultContent();
+			Log.info("Switching to main frame");
+		} catch (NoSuchFrameException e) {
+			Log.error("Failed to switch to main frame");
+			throw e;
+		}
 	}
 }

@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.rapidapi.automation.sandbox.config.EnvConfig;
+import com.rapidapi.automation.sandbox.config.Log;
 import com.rapidapi.automation.sandbox.web.driver.Driver;
 
 public abstract class AbstractGUITestCase {
@@ -16,17 +17,12 @@ public abstract class AbstractGUITestCase {
 	@BeforeClass
 	public static void setUp() throws Exception{
 		
-		if(driver != null){
-			driver.quit();
-			driver = null;
-		}
-		
-		Driver.killWebdrivers();
+		Driver.quitDriver();
 		
 		try{
 			driver = Driver.getWebDriver();
 		}catch(Exception e){
-			System.out.println("Failed to initiate WebDriver");
+			Log.error("Failed to initiate WebDriver");
 			e.printStackTrace();
 			throw e;
 		}
@@ -35,13 +31,11 @@ public abstract class AbstractGUITestCase {
 	
 	@AfterClass
 	public static void tearDown() throws Exception{
-		driver.quit();
-		driver = null;
-		Driver.killWebdrivers();
+		Driver.quitDriver();
 	}
 	
 	protected void browseToUrl(String url) {
-		System.out.println("Browsing to URL: " + url);
+		Log.info("Browsing to URL: " + url);
 		driver.get(url);
 	}
 }

@@ -2,12 +2,14 @@ package com.rapidapi.automation.sandbox.web.pages;
 
 import org.openqa.selenium.WebDriver;
 
+import com.rapidapi.automation.sandbox.config.Log;
 import com.rapidapi.automation.sandbox.web.PageElement;
 
 public class SitePageEditorPage extends AbstractPage {
 
 	public SitePageEditorPage(WebDriver driver) {
 		super(driver);
+		Log.info("New Site Page editor opened");
 	}
 	
 	public void createNewSitePage(String title, String body) {

@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.rapidapi.automation.sandbox.config.Log;
+
 public class PageElement {
 
 	String description;
@@ -32,34 +34,38 @@ public class PageElement {
 		
 		long time = System.currentTimeMillis();
 		long stopTime = time + miliSeconds;
+		Log.info("Waiting for " + miliSeconds/1000 + " seconds");
 		while(time < stopTime){
 			time = System.currentTimeMillis();
 		}
 	}
 	
 	private WebElement getWebElement() {
-		
+		Log.info("Identifying page element " + getDescription());
 		try {
 			WebElement element =  webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(getxPath())));
 			for(int i = 0; i < 3; i++) {
 				if(element.isEnabled()) {
+					Log.info("Page element " + getDescription() + " found and available");
 					return element;
 				}			
 				waitInMiliSeconds(1000);
 			}
 		}catch (NoSuchElementException e) {
-			System.out.println("Page Element " + getDescription() + " not found");
+			Log.error("Page Element " + getDescription() + " not found");
 		}
 		return null;
 	}
 	
 	public void clickOnPageElement(){
 		WebElement webElement = getWebElement();
+		Log.info("Clicking on page element " + getDescription());
 		webElement.click();
 	}
 
 	public void writeToPageElement(String value){
 		WebElement webElement = getWebElement();
+		Log.info("Writing to page element " + getDescription());
 		webElement.click();
 		webElement.clear();
 		webElement.sendKeys(value);
@@ -67,8 +73,7 @@ public class PageElement {
 	
 	public String getPageElementText(){
 		WebElement webElement = getWebElement();
+		Log.info("Reading text from page element " + getDescription());
 		return webElement.getText();
 	}
-	
-	
 }

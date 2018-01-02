@@ -15,7 +15,7 @@ public class WordPressSanity extends AbstractGUITestCase{
 
 	@Test
 	public void createNewSitePage() {
-		driver.get("http://www.wordpress.com");
+		browseToUrl("http://www.wordpress.com");
 		
 		LandingPage landingPage = new LandingPage(driver);
 		LoginPage loginPage = landingPage.getLoginPage();

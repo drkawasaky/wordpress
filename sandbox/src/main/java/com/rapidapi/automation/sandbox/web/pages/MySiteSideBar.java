@@ -2,12 +2,14 @@ package com.rapidapi.automation.sandbox.web.pages;
 
 import org.openqa.selenium.WebDriver;
 
+import com.rapidapi.automation.sandbox.config.Log;
 import com.rapidapi.automation.sandbox.web.PageElement;
 
 public class MySiteSideBar extends AbstractPage {
 
 	public MySiteSideBar(WebDriver driver) {
 		super(driver);
+		Log.info("My Site sidebar opened");
 	}
 	
 	public SitePageEditorPage addNewSitePage() {

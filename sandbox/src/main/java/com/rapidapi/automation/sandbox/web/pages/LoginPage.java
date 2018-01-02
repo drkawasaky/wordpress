@@ -10,13 +10,7 @@ public class LoginPage extends AbstractPage {
 		super(driver);
 	}
 	
-	public LoginPage getLoginPage() {
-		PageElement loginLink = new PageElement(driver, "Log In link", "//a[@id='navbar-login-link']");
-		loginLink.clickOnPageElement();
-		return this;
-	}
-	
-	public void loginToAccount(String userName, String password) {
+	public ReaderPage loginToAccount(String userName, String password) {
 		PageElement emailAddressInputField = new PageElement(driver, "Email Address Input Field", "//input[@id='usernameOrEmail']");
 		PageElement continueButton = new PageElement(driver, "Continue Button", "//button[text()='Continue']");
 		PageElement passwordInputField = new PageElement(driver, "Password Input Field", "//input[@id='password']");
@@ -26,6 +20,8 @@ public class LoginPage extends AbstractPage {
 		continueButton.clickOnPageElement();
 		passwordInputField.writeToPageElement(password);
 		loginButton.clickOnPageElement();
+		
+		return new ReaderPage(driver);
 	}
 
 }

@@ -23,7 +23,7 @@ public class HttpServicing {
 
 	public static String performRequest() throws Exception {
 
-		String serviceUrl = "http://the-internet.herokuapp.com/download_secure/picture.jpg";
+		String serviceUrl = "http://the-internet.herokuapp.com/download_secure/Screenshot.png";
 		String credential = Credentials.basic("admin", "admin");
 
 		Request request = new Request.Builder()
@@ -38,7 +38,7 @@ public class HttpServicing {
 		String contentSize = response.header("Content-Length");
 		
 		if((response.code() == 200)) {
-			return contentSize;
+			return "The content size is: " + contentSize;
 		}
 
 		return responseHeaders;

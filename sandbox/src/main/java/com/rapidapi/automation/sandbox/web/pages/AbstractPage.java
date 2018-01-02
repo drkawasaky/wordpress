@@ -50,4 +50,12 @@ public abstract class AbstractPage {
 			return false;
 		}
 	}
+	
+	public void switchToFrameByXpath(String xPath) {
+		driver.switchTo().frame(driver.findElement(By.xpath(xPath)));
+	}
+	
+	public void switchToMainFrame() {
+		driver.switchTo().defaultContent();
+	}
 }
